@@ -1,10 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { User } from "@/models/User";
+import { User, UserRegister } from "@/models/User";
+import { register } from "@/services/User";
 
 const RegisterPage = () => {
-  const [tmpUser, setTmpUser] = useState<User>({} as User);
+  const [tmpUser, setTmpUser] = useState<UserRegister>({} as UserRegister);
   const router = useRouter();
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTmpUser({
@@ -16,7 +17,17 @@ const RegisterPage = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     console.log(tmpUser);
-    // router.push("/login");
+
+    if (tmpUser.confirm_password !== tmpUser.Password) {
+      console.log("wrong");
+    } else {
+      const { confirm_password, ...user } = tmpUser;
+      const res = await register(user);
+      if (res) {
+        router.push("/login");
+        console.log("done");
+      }
+    }
   };
   return (
     <div className="bg-white w-1/2 h-2/3 flex flex-col rounded-2xl items-center justify-center">
@@ -30,7 +41,7 @@ const RegisterPage = () => {
             <input
               id="Email"
               type="text"
-              name="email"
+              name="Email"
               required
               className="text-input"
               onChange={handleFormChange}
@@ -43,7 +54,7 @@ const RegisterPage = () => {
             <input
               id="Student ID"
               type="text"
-              name="sid"
+              name="Sid"
               required
               className="text-input"
               onChange={handleFormChange}
@@ -57,7 +68,7 @@ const RegisterPage = () => {
             <input
               id="display_name"
               type="text"
-              name="name"
+              name="Name"
               required
               className="text-input"
               onChange={handleFormChange}
@@ -71,7 +82,7 @@ const RegisterPage = () => {
             <input
               id="Surname"
               type="text"
-              name="surname"
+              name="Surname"
               className="text-input"
               onChange={handleFormChange}
             ></input>
@@ -84,7 +95,7 @@ const RegisterPage = () => {
             <input
               id="password"
               type="text"
-              name="password"
+              name="Password"
               required
               className="text-input"
               onChange={handleFormChange}
