@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import {
   MdOutlineKeyboardArrowUp,
   MdOutlineKeyboardArrowDown,
@@ -21,14 +21,14 @@ export default function DropDown({
 }: DropDownProps) {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-  const handleClickOutside = (event: MouseEvent) => {
+  const handleClickOutside = useCallback((event: MouseEvent) => {
     if (
       dropdownRef.current &&
       !dropdownRef.current.contains(event.target as Node)
     ) {
       setDropDown(false);
     }
-  };
+  }, [setDropDown]);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);

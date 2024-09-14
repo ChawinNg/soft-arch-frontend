@@ -4,17 +4,6 @@ import CourseCard from "./CourseCard";
 import CourseHeader from "./CourseHeader";
 import { useEffect, useState } from "react";
 
-// const course: Course = {
-//   courseId: "2110413",
-//   name: "COMPUTER SECURITY",
-//   credit: 3,
-//   section: [1, 2, 3],
-//   day: ["TUE 13:00-16:00", "WED 13:00-16:00", "THU 13:00-16:00"],
-//   capacity: [40, 30, 20],
-//   maxCapacity: [50, 50, 50],
-//   instructor: ["KPR", "AAA", "BBB"],
-//   registered: [false, false, false],
-// };
 type CourseData = {
   course: Course;
   sections: Section[];
@@ -46,6 +35,7 @@ export default function CourseList() {
       try {
         const data = await getCoursesPaginated(1);
         setCourses(data.courses);
+        console.log(data.courses)
       } catch (error) {
         console.error(error);
       } finally {

@@ -26,8 +26,9 @@ export type Course = {
     id: number;
     section: number;
     capacity: number;
+    max_capacity: number;
     room?: string | null;
-    timeslots: string[][];
+    timeslots: string[];
     instructors: Instructor[];
   };
 

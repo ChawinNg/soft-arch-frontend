@@ -3,22 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import DropDown from "./DropDown";
 import { PiPlusSquareBold, PiCheckSquareBold } from "react-icons/pi";
 import { CourseProps, Instructor } from "@/models/CourseProps";
-
-// export type Course = {
-//   courseId: string;
-//   name: string;
-//   credit: number;
-//   section: Array<number>;
-//   day: Array<string>;
-//   capacity: Array<number>;
-//   maxCapacity: Array<number>;
-//   instructor: Array<string>;
-//   registered: Array<boolean>;
-// };
-
-
-
-
+import Link from 'next/link';
 
 export default function CourseCard({ course, sections }: CourseProps) {
   const [dropdown, setDropdown] = useState(false);
@@ -59,8 +44,11 @@ export default function CourseCard({ course, sections }: CourseProps) {
       <div className="flex w-[18%] text-bold justify-center text-black items-center">
         {course.id}
       </div>
-      <div className="flex w-[25%] text-bold justify-center text-black items-center">
-        {course.course_name}
+      <div
+        className="flex w-[25%] text-bold justify-center text-black items-center"
+      >
+        <Link href={`/courses/${course.id}`}> {course.course_name}</Link>
+       
       </div>
       <div className="flex w-[7%] text-bold justify-center text-black items-center">
         {course.credit}
@@ -72,7 +60,6 @@ export default function CourseCard({ course, sections }: CourseProps) {
         }}
       >
         <DropDown
-          // course={course.section}
           course={sections ? sections.map((section) => section.section) : []}
           dropdown={dropdown}
           setDropDown={setDropdown}
@@ -82,17 +69,27 @@ export default function CourseCard({ course, sections }: CourseProps) {
       </button>
       <div className="flex w-[15%] text-bold justify-center text-black items-center flex-row">
         <div>
-          {sections && sections[sectionIndex] && sections[sectionIndex].timeslots && sections[sectionIndex].timeslots.map((timeslot: any) => (<div key={timeslot[0]}>{timeslot}</div>)) }
+          {sections &&
+            sections[sectionIndex] &&
+            sections[sectionIndex].timeslots &&
+            sections[sectionIndex].timeslots.map((timeslot: string) => (
+              <div key={timeslot}>{timeslot}</div>
+            ))}
         </div>
       </div>
       <div className="flex w-[10%] text-bold justify-center text-black items-center">
         {sections && sections[sectionIndex] && sections[sectionIndex].capacity}/
-        {sections && sections[sectionIndex] && sections[sectionIndex].capacity}
+        {sections &&
+          sections[sectionIndex] &&
+          sections[sectionIndex].max_capacity}
       </div>
       <div className="flex w-[10%] text-bold justify-center text-black items-center">
         {sections &&
-          sections[sectionIndex] && sections[sectionIndex].instructors &&
-          sections[sectionIndex].instructors.map((i: Instructor) => i.display_name).join(', ')}
+          sections[sectionIndex] &&
+          sections[sectionIndex].instructors &&
+          sections[sectionIndex].instructors
+            .map((i: Instructor) => i.display_name)
+            .join(", ")}
       </div>
       <button
         className="flex w-[8%] text-bold justify-center text-black items-center"
