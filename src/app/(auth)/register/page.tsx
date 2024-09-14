@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { UserRegister } from "@/models/User";
+import { User } from "@/models/User";
 
 const RegisterPage = () => {
-  const [tmpUser, setTmpUser] = useState<UserRegister>({} as UserRegister);
+  const [tmpUser, setTmpUser] = useState<User>({} as User);
   const router = useRouter();
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTmpUser({
@@ -15,7 +15,8 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    router.push("/login");
+    console.log(tmpUser);
+    // router.push("/login");
   };
   return (
     <div className="bg-white w-1/2 h-2/3 flex flex-col rounded-2xl items-center justify-center">
@@ -29,7 +30,7 @@ const RegisterPage = () => {
             <input
               id="Email"
               type="text"
-              name="Email"
+              name="email"
               required
               className="text-input"
               onChange={handleFormChange}
@@ -42,7 +43,7 @@ const RegisterPage = () => {
             <input
               id="Student ID"
               type="text"
-              name="Student ID"
+              name="sid"
               required
               className="text-input"
               onChange={handleFormChange}
@@ -56,7 +57,7 @@ const RegisterPage = () => {
             <input
               id="display_name"
               type="text"
-              name="display_name"
+              name="name"
               required
               className="text-input"
               onChange={handleFormChange}
@@ -70,7 +71,7 @@ const RegisterPage = () => {
             <input
               id="Surname"
               type="text"
-              name="Surname"
+              name="surname"
               className="text-input"
               onChange={handleFormChange}
             ></input>
@@ -100,7 +101,7 @@ const RegisterPage = () => {
             <input
               id="Confirm password"
               type="text"
-              name="Confirm password"
+              name="confirm_password"
               required
               className="text-input"
               onChange={handleFormChange}

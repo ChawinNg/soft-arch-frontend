@@ -1,7 +1,10 @@
-export interface UserRegister {
-    username: string;
-    display_name: string;
+export interface User {
+    name: string;
+    sid:string;
+    surname: string;
+    email: string;
     password: string;
-    // profileImg?: string;
-    description: string;
+
+    confirm_password: string;
+
 }
