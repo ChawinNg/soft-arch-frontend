@@ -22,7 +22,7 @@ const RegisterPage = () => {
       <div className="text-center header-text text-black ">Register</div>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-2 gap-3">
-          <div className="my-2 flex flex-col">
+          <div className="m-2 flex flex-col">
             <label htmlFor="Email" className="normal-text text-black">
               Email
             </label>
@@ -35,7 +35,7 @@ const RegisterPage = () => {
               onChange={handleFormChange}
             ></input>
           </div>
-          <div className="my-2 flex flex-col">
+          <div className="m-2 flex flex-col">
             <label htmlFor="Student ID" className="normal-text text-black">
               Student ID
             </label>
@@ -49,7 +49,7 @@ const RegisterPage = () => {
             ></input>
           </div>
 
-          <div className="my-2 flex flex-col">
+          <div className="m-2 flex flex-col">
             <label htmlFor="display_name" className="normal-text text-black">
               Name
             </label>
@@ -63,7 +63,7 @@ const RegisterPage = () => {
             ></input>
           </div>
 
-          <div className="my-2 flex flex-col">
+          <div className="m-2 flex flex-col">
             <label htmlFor="Surname" className="normal-text text-black">
               Surname
             </label>
@@ -76,7 +76,7 @@ const RegisterPage = () => {
             ></input>
           </div>
 
-          <div className="my-2 flex flex-col">
+          <div className="m-2 flex flex-col">
             <label htmlFor="password" className="normal-text text-black">
               Password
             </label>
@@ -90,7 +90,7 @@ const RegisterPage = () => {
             ></input>
           </div>
 
-          <div className="my-2 flex flex-col">
+          <div className="m-2 flex flex-col">
             <label
               htmlFor="Confirm password"
               className="normal-text text-black"
@@ -107,7 +107,7 @@ const RegisterPage = () => {
             ></input>
           </div>
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-4">
           <button
             type="submit"
             className="bg-black text-white normal-text py-1 px-2 my-3 mx-auto rounded-lg w-2/3 h-2/3"
