@@ -23,7 +23,7 @@ const ProfilePage = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (currentPass === me.password) {
-      const res = await updatePassword(me.id, newPass);
+      const res = await updatePassword(newPass);
       if (res) {
         setIsEditing(!isEditing);
       }

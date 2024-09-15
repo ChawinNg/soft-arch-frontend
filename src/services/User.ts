@@ -58,15 +58,15 @@ export async function getMe() {
   }
 }
 
-export async function updatePassword(id: string, password: string) {
+export async function updatePassword( password: string) {
   try {
-    const response = await fetch(`http://localhost:8080/api/v1/users/${id}`, {
+    const response = await fetch(`http://localhost:8080/api/v1/users/password`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        password: password,
+        Password: password,
       }),
       credentials: "include",
     });

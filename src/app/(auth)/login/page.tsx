@@ -20,7 +20,7 @@ const LoginPage = () => {
     e.preventDefault();
     const res = await login(tmpUser);
     if (res) {
-      router.push("/");
+      router.push("/profile");
     }
   };
   return (
