@@ -41,3 +41,45 @@ export async function login(userInfo: UserLogin) {
     }
   }
   
+  export async function getMe() {
+    try {
+      const response = await fetch('http://localhost:8080/api/users/me', {
+        method: "GET",
+        
+      });
+  
+      if (!response.ok) {
+        throw new Error("can't get me");
+      }
+      const data = await response.json();
+      return data;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  export async function updatePassword(
+    id: string,
+    password: string
+  ) {
+    try {
+      const response = await fetch(`http://localhost:8080/api/users/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          password: password,
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error("can't update user status");
+      }
+      const data = await response.json();
+      return data;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  

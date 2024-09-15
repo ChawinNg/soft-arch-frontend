@@ -1,17 +1,33 @@
 "use client";
 import ProfilePic from "@/components/ProfilePic";
-import { useState} from "react";
+import { getMe, updatePassword } from "@/services/User";
+import { useState, useEffect } from "react";
+import { UserMe } from "@/models/User";
 
 const ProfilePage = () => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [currentPass,setCurrentPass] = useState<string>('');
-  const [newPass,setNewPass] = useState<string>('');
+  const [currentPass, setCurrentPass] = useState<string>("");
+  const [newPass, setNewPass] = useState<string>("");
+  const [me, setMe] = useState<UserMe>({} as UserMe);
+  useEffect(() => {
+    const fetchMe = async () => {
+      const myself = await getMe();
+      if (myself) {
+        setMe(myself);
+      }
+    };
 
+    fetchMe();
+  }, []);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    //check current pass = real current pass
-
+    if (currentPass === me.Password) {
+      const res = await updatePassword(me.id, newPass);
+      if (res) {
+        setIsEditing(!isEditing);
+      }
+    }
   };
   return (
     <div className="w-full h-full flex justify-center items-center">
@@ -20,7 +36,10 @@ const ProfilePage = () => {
           <div className="bg-white  w-1/5 h-1/3 flex flex-col rounded-2xl justify-center items-center">
             <form onSubmit={handleSubmit}>
               <div className="m-2 flex flex-col w-full">
-                <label htmlFor="Old Password" className="normal-text text-black">
+                <label
+                  htmlFor="Old Password"
+                  className="normal-text text-black"
+                >
                   Current Password
                 </label>
                 <input
@@ -29,11 +48,14 @@ const ProfilePage = () => {
                   name="Old Password"
                   required
                   className="text-input"
-                  onChange={(e)=>setCurrentPass(e.target.value)}
+                  onChange={(e) => setCurrentPass(e.target.value)}
                 ></input>
               </div>
               <div className="m-2 flex flex-col  w-full">
-                <label htmlFor="new-password" className="normal-text text-black">
+                <label
+                  htmlFor="new-password"
+                  className="normal-text text-black"
+                >
                   New Password
                 </label>
                 <input
@@ -42,16 +64,22 @@ const ProfilePage = () => {
                   name="New Password"
                   required
                   className="text-input"
-                  onChange={(e)=>setNewPass(e.target.value)}
+                  onChange={(e) => setNewPass(e.target.value)}
                 ></input>
               </div>
 
               <div className="flex justify-center mx-2 my-6 w-full">
                 <button
-                  type="submit"
-                  className="bg-black text-white normal-text p-2 my-2 rounded-lg w-full h-2/3"
+                  onClick={() => setIsEditing(!isEditing)}
+                  className="bg-gray-600 text-white normal-text p-2 m-2 rounded-lg w-full h-2/3"
                 >
-                  Change Password
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="bg-black text-white normal-text p-2 m-2 rounded-lg w-full h-2/3"
+                >
+                  Confirm
                 </button>
               </div>
             </form>
@@ -73,9 +101,9 @@ const ProfilePage = () => {
             </div>
           </div>
           <div className="flex flex-col w-1/2 h-full">
-            <div className="normal-text p-3">Name : {"scdhsdciu"}</div>
-            <div className="normal-text p-3">Student ID : {"scdhsdciu"}</div>
-            <div className="normal-text p-3">Email : {"scdhsdciu"}</div>
+            <div className="normal-text p-3">Name : {me.Name}</div>
+            <div className="normal-text p-3">Student ID : {me.Sid}</div>
+            <div className="normal-text p-3">Email : {me.Email}</div>
           </div>
         </div>
       </div>
