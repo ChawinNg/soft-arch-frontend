@@ -16,10 +16,10 @@ export type UserLogin = Omit<
 >;
 
 export type UserMe = {
-    id:string
-    Name: string;
-    Sid: string;
-    Surname: string;
-    Email: string;
-    Password: string;
-}
+  id: string;
+  name: string;
+  sid: string;
+  surname: string;
+  email: string;
+  password: string;
+};

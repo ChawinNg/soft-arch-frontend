@@ -22,7 +22,7 @@ const ProfilePage = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    if (currentPass === me.Password) {
+    if (currentPass === me.password) {
       const res = await updatePassword(me.id, newPass);
       if (res) {
         setIsEditing(!isEditing);
@@ -101,9 +101,9 @@ const ProfilePage = () => {
             </div>
           </div>
           <div className="flex flex-col w-1/2 h-full">
-            <div className="normal-text p-3">Name : {me.Name}</div>
-            <div className="normal-text p-3">Student ID : {me.Sid}</div>
-            <div className="normal-text p-3">Email : {me.Email}</div>
+            <div className="normal-text p-3">Name : {me.name}</div>
+            <div className="normal-text p-3">Student ID : {me.sid}</div>
+            <div className="normal-text p-3">Email : {me.email}</div>
           </div>
         </div>
       </div>
