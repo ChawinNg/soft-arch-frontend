@@ -21,14 +21,17 @@ export default function DropDown({
 }: DropDownProps) {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-  const handleClickOutside = useCallback((event: MouseEvent) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node)
-    ) {
-      setDropDown(false);
-    }
-  }, [setDropDown]);
+  const handleClickOutside = useCallback(
+    (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setDropDown(false);
+      }
+    },
+    [setDropDown]
+  );
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -39,35 +42,37 @@ export default function DropDown({
 
   return (
     <>
-      <div className="flex-1 text-center">{course[section]}</div>
-      {dropdown ? (
-        <MdOutlineKeyboardArrowUp size={24} />
-      ) : (
-        <MdOutlineKeyboardArrowDown size={24} />
-      )}
-      {dropdown && (
-        <div
-          ref={dropdownRef}
-          className="w-[4%] absolute top-60 flex flex-col items-start rounded-lg bg-[#D2D2D2]"
-        >
-          {Array.from(course).map((sec, i) => (
-            <div
-              className={`w-full h-8 text-center py-1 hover:bg-[#979797] ${
-                i === 0 ? "rounded-t-lg" : ""
-              } ${i === course.length - 1 ? "rounded-b-lg" : ""} ${
-                i !== 0 && i !== course.length - 1 ? "border-t" : ""
-              }`}
-              key={sec}
-              onClick={() => {
-                setSection(i);
-                setDropDown(false);
-              }}
-            >
-              {sec}
-            </div>
-          ))}
+      <div className="relative flex flex-col items-center w-14">
+        <div className="w-full flex items-center justify-between pl-2">
+          {course[section]}
+          {dropdown ? (
+            <MdOutlineKeyboardArrowUp size={24} />
+          ) : (
+            <MdOutlineKeyboardArrowDown size={24} />
+          )}
         </div>
-      )}
+        {dropdown && (
+          <div
+            ref={dropdownRef}
+            className="absolute flex flex-col w-full rounded-lg items-start top-14"
+          >
+            {Array.from(course).map((sec, i) => (
+              <div
+                className={`w-full p-2 jusitfy-center items-center bg-[#D2D2D2] hover:bg-[#767676] z-30 ${
+                  i === 0 ? "rounded-t-lg" : ""
+                } ${i === course.length - 1 ? "rounded-b-lg" : ""} `}
+                key={sec}
+                onClick={() => {
+                  setSection(i);
+                  setDropDown(false);
+                }}
+              >
+                {sec}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </>
   );
 }
