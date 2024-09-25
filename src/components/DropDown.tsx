@@ -42,8 +42,8 @@ export default function DropDown({
 
   return (
     <>
-      <div className="relative flex flex-col items-center w-14">
-        <div className="w-full flex items-center justify-between pl-2">
+      <div className="relative flex flex-col items-center w-full">
+        <div className="w-full flex items-center justify-around pl-2">
           {course[section]}
           {dropdown ? (
             <MdOutlineKeyboardArrowUp size={24} />
