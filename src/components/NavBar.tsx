@@ -12,22 +12,22 @@ const NavBar = () => {
       <div className="flex flex-row">
         <ChangePageButton
           pageName="Search for courses"
-          active={pathname==='/search'}
+          active={pathname === "/search"}
           url="search"
         ></ChangePageButton>
         <ChangePageButton
           pageName="Course Register"
-          active={pathname==='/course-register'}
-          url="course-register"
+          active={pathname === "/registration"}
+          url="registration"
         ></ChangePageButton>
         <ChangePageButton
           pageName="My Schedule"
-          active={pathname==='/schedule'}
+          active={pathname === "/schedule"}
           url="schedule"
         ></ChangePageButton>
         <ChangePageButton
           pageName="Registration History"
-          active={pathname==='/history'}
+          active={pathname === "/history"}
           url="history"
         ></ChangePageButton>
       </div>
