@@ -14,12 +14,8 @@ export default function RegistrationHeader() {
       <div className="flex w-[7%] text-bold justify-center text-white items-center">
         Credit
       </div>
-      <div className="flex w-[7%] text-bold justify-center text-white items-center">
+      <div className="flex w-[15%] text-bold justify-center text-white items-center">
         Section
-      </div>
-      <div className="flex w-[10%] text-bold justify-center gap-2 items-center">
-        <div className="text-white">Capacity</div>
-        <BsSortDown size={16} color="white" />
       </div>
       <div className="flex w-[15%] text-bold justify-center gap-2 items-center">
         <div className="text-white">Bids</div>

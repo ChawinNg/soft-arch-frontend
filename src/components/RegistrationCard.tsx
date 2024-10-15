@@ -54,33 +54,15 @@ export default function RegistrationCard({
       <div className="flex w-[7%] text-bold justify-center text-black items-center">
         {course.credit}
       </div>
-      <button
-        className="flex w-[7%] text-bold text-black items-center hover:border"
-        onClick={() => {
-          setDropdown(!dropdown);
-        }}
-      >
-        <DropDown
-          course={sections ? sections.map((section) => section.section) : []}
-          dropdown={dropdown}
-          setDropDown={setDropdown}
-          section={sectionIndex}
-          setSection={setSectionIndex}
-        />
-      </button>
-
-      <div className="flex w-[10%] text-bold justify-center text-black items-center">
-        {sections && sections[sectionIndex] && sections[sectionIndex].capacity}/
-        {sections &&
-          sections[sectionIndex] &&
-          sections[sectionIndex].max_capacity}
+      <div className="flex w-[15%] text-bold justify-center text-black items-center">
+        1
       </div>
       <div className="flex w-[15%] text-bold justify-center text-black items-center">
         <input
           type="text"
           className="w-1/2 px-2 border-black border-2 rounded-lg"
           onChange={(e) => {
-            onPointChange(course.id, parseInt(e.target.value));
+            onPointChange(course.id, parseInt(e.target.value) || 0);
           }}
         ></input>
       </div>

@@ -58,16 +58,39 @@ export async function getMe() {
   }
 }
 
-export async function updatePassword( password: string) {
+export async function updatePassword(password: string) {
   try {
-    const response = await fetch(`http://localhost:8080/api/v1/users/password`, {
-      method: "PUT",
+    const response = await fetch(
+      `http://localhost:8080/api/v1/users/password`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          Password: password,
+        }),
+        credentials: "include",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("can't update user status");
+    }
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function getUserpoint() {
+  try {
+    const response = await fetch(`http://localhost:8080/api/v1/points/me`, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        Password: password,
-      }),
       credentials: "include",
     });
 
