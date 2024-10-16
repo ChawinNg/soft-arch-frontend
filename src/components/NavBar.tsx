@@ -13,7 +13,7 @@ const NavBar = () => {
         <ChangePageButton
           pageName="Search for courses"
           active={pathname === "/"}
-          url="search"
+          url=""
         ></ChangePageButton>
         <ChangePageButton
           pageName="Course Register"
