@@ -1,11 +1,14 @@
 "use client";
 import { useState } from "react";
 import UserPoint from "./UserPoint";
+import { UserMe } from "@/models/User";
 
 export default function RegistrationSummary({
   totalPoints,
+  user,
 }: {
   totalPoints: number;
+  user: UserMe;
 }) {
   const [pointUsed, setPointUsed] = useState(0);
   const [totalaCredit, setTotalCredit] = useState(0);
