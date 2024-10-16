@@ -4,12 +4,15 @@ import DropDown from "./DropDown";
 import { PiPlusSquareBold, PiCheckSquareBold } from "react-icons/pi";
 import { CourseProps, Instructor } from "@/models/CourseProps";
 import Link from "next/link";
+import createEnrollment from "@/services/Enrollments";
+import { CreateEnrollment } from "@/models/Enrollment";
+import { useAuth } from "@/context/AuthProvider";
 
 export default function CourseCard({ course, sections }: CourseProps) {
   const [dropdown, setDropdown] = useState(false);
   const [sectionIndex, setSectionIndex] = useState(0);
-  // const [registered, setRegistered] = useState(course.registered[section]);
   const [registered, setRegistered] = useState(false);
+  const { user, setUser } = useAuth();
 
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
@@ -20,6 +23,20 @@ export default function CourseCard({ course, sections }: CourseProps) {
     ) {
       setDropdown(false);
     }
+  };
+
+  const handleAddEnrollment = async () => {
+    const newEnrollment = {
+      user_id: user.id,
+      course_id: course.id,
+      section_id: sections[sectionIndex].id,
+      section: sections[sectionIndex].section,
+      points: 0,
+      round: "2024/1",
+    };
+    const addEnroll = await createEnrollment(newEnrollment);
+    console.log(addEnroll);
+    setRegistered(!registered);
   };
 
   useEffect(() => {
@@ -91,8 +108,7 @@ export default function CourseCard({ course, sections }: CourseProps) {
       <button
         className="flex w-[8%] text-bold justify-center text-black items-center"
         onClick={() => {
-          setRegistered(!registered);
-          // course.registered[section] = !course.registered[section];
+          handleAddEnrollment();
         }}
       >
         {/* {course.registered[section] ? ( */}
