@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import DropDown from "./DropDown";
 import { PiPlusSquareBold, PiCheckSquareBold } from "react-icons/pi";
 import { CourseProps, Instructor } from "@/models/CourseProps";
-import Link from 'next/link';
+import Link from "next/link";
 
 export default function CourseCard({ course, sections }: CourseProps) {
   const [dropdown, setDropdown] = useState(false);
@@ -44,11 +44,8 @@ export default function CourseCard({ course, sections }: CourseProps) {
       <div className="flex w-[18%] text-bold justify-center text-black items-center">
         {course.id}
       </div>
-      <div
-        className="flex w-[25%] text-bold justify-center text-black items-center"
-      >
+      <div className="flex w-[25%] text-bold justify-center text-black items-center">
         <Link href={`/courses/${course.id}`}> {course.course_name}</Link>
-       
       </div>
       <div className="flex w-[7%] text-bold justify-center text-black items-center">
         {course.credit}
@@ -99,7 +96,7 @@ export default function CourseCard({ course, sections }: CourseProps) {
         }}
       >
         {/* {course.registered[section] ? ( */}
-        {course ? (
+        {registered ? (
           <PiCheckSquareBold size={32} />
         ) : (
           <PiPlusSquareBold size={32} />
