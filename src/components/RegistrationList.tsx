@@ -3,38 +3,20 @@ import { Course, Section, CourseProps } from "@/models/CourseProps";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import RegistrationHeader from "./RegistrationHeader";
 import RegistrationCard from "./RegistrationCard";
-
-type CourseData = {
-  course: Course;
-  sections: Section[];
-};
-async function getCoursesPaginated(page: number) {
-  try {
-    const response = await fetch(
-      `http://127.0.0.1:8080/api/v1/courses/paginated`,
-      {
-        method: "GET",
-        credentials: "include",
-      }
-    );
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching paginated courses:", error);
-    throw new Error("Failed to fetch paginated courses");
-  }
-}
+import { deleteEnrollment, getUserEnrollment } from "@/services/Enrollments";
+import { Enrollment } from "@/models/Enrollment";
+import Image from "next/image";
 
 export default function RegistrationList({
   setAllPoint,
 }: {
   setAllPoint: Dispatch<SetStateAction<number>>;
 }) {
-  const [courses, setCourses] = useState<CourseData[]>([]);
+  const [enrollments, setEnrollments] = useState<Enrollment[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [points, setPoints] = useState<{ [key: string]: number }>(
-    courses.reduce((acc, course) => {
-      acc[course.course.id] = 0;
+    enrollments?.reduce((acc, course) => {
+      acc[course.id] = 0;
       return acc;
     }, {} as { [key: string]: number })
   );
@@ -48,9 +30,11 @@ export default function RegistrationList({
     const fetchCourses = async () => {
       setLoading(true);
       try {
-        const data = await getCoursesPaginated(1);
-        setCourses(data.courses);
-        console.log(data.courses);
+        const data = await getUserEnrollment("670e4cdc2c529a3c1e03aa93");
+        if (data.data) {
+          setEnrollments(data.data);
+          console.log(data.data);
+        }
       } catch (error) {
         console.error(error);
       } finally {
@@ -68,21 +52,43 @@ export default function RegistrationList({
     }));
   }
 
+  function handleCourseRemove(enrollmentId: string) {
+    const indexToRemove = enrollments.findIndex(
+      (item) => item.id === enrollmentId
+    );
+
+    deleteEnrollment(enrollmentId);
+  }
+
   useEffect(() => {
     setAllPoint(totalPoints);
   }, [points]);
 
   return (
     <>
-      <RegistrationHeader />
-      {courses.map((courseProps: CourseProps) => (
-        <RegistrationCard
-          key={courseProps.course.id}
-          course={courseProps.course}
-          sections={courseProps.sections}
-          onPointChange={handlePointsChange}
-        />
-      ))}
+      {enrollments.length != 0 ? (
+        <div className="w-full">
+          <RegistrationHeader />
+          {enrollments.map((enrollmentProps: Enrollment) => (
+            <RegistrationCard
+              key={enrollmentProps.id}
+              enrollment={enrollmentProps}
+              onPointChange={handlePointsChange}
+              onRemoveEnrollment={handleCourseRemove}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="w-2/3 flex flex-col justify-center items-center h-full gap-y-4 bg-white py-8 rounded-xl">
+          <div>You didn't select any course yet!</div>
+          <Image
+            src={"/img/select_course.jpg"}
+            alt={"no image"}
+            width={400}
+            height={400}
+          />
+        </div>
+      )}
     </>
   );
 }

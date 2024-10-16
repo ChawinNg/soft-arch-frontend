@@ -1,3 +1,5 @@
+import { Enrollment } from "./Enrollment";
+
 export type Course = {
   id: string;
   description: string;
@@ -38,7 +40,7 @@ export interface CourseProps {
 }
 
 export interface RegistrationProps {
-  course: Course;
-  sections: Section[];
+  enrollment: Enrollment;
   onPointChange: (courseId: string, newPoints: number) => void;
+  onRemoveEnrollment: (courseId: string) => void;
 }

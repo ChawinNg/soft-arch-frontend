@@ -1,14 +1,14 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import DropDown from "./DropDown";
-import { PiPlusSquareBold, PiCheckSquareBold } from "react-icons/pi";
+import { PiXSquareBold } from "react-icons/pi";
 import { RegistrationProps } from "@/models/CourseProps";
 import Link from "next/link";
 
 export default function RegistrationCard({
-  course,
-  sections,
+  enrollment,
   onPointChange,
+  onRemoveEnrollment,
 }: RegistrationProps) {
   const [dropdown, setDropdown] = useState(false);
   const [sectionIndex, setSectionIndex] = useState("0");
@@ -46,23 +46,27 @@ export default function RegistrationCard({
       } item-center h-20 hover:bg-[#979797]`}
     >
       <div className="flex w-[15%] text-bold justify-center text-black items-center">
-        {course.id}
+        {enrollment.course_id}
       </div>
       <div className="flex w-[25%] text-bold justify-center text-black items-center">
-        <Link href={`/courses/${course.id}`}> {course.course_name}</Link>
+        <Link href={`/courses/${enrollment.course_id}`}>
+          {"test1"}
+          {/* {course.course_name} */}
+        </Link>
       </div>
       <div className="flex w-[7%] text-bold justify-center text-black items-center">
-        {course.credit}
+        {/* {course.credit} */}
+        {"test2"}
       </div>
       <div className="flex w-[15%] text-bold justify-center text-black items-center">
-        1
+        {enrollment.section}
       </div>
       <div className="flex w-[15%] text-bold justify-center text-black items-center">
         <input
           type="text"
           className="w-1/2 px-2 border-black border-2 rounded-lg"
           onChange={(e) => {
-            onPointChange(course.id, parseInt(e.target.value) || 0);
+            onPointChange(enrollment.course_id, parseInt(e.target.value) || 0);
           }}
         ></input>
       </div>
@@ -74,11 +78,10 @@ export default function RegistrationCard({
         }}
       >
         {/* {course.registered[section] ? ( */}
-        {course ? (
-          <PiCheckSquareBold size={32} />
-        ) : (
-          <PiPlusSquareBold size={32} />
-        )}
+        <PiXSquareBold
+          size={32}
+          onClick={() => onRemoveEnrollment(enrollment.id)}
+        />
       </button>
     </div>
   );
