@@ -4,17 +4,34 @@ import DropDown from "./DropDown";
 import { PiPlusSquareBold, PiCheckSquareBold } from "react-icons/pi";
 import { CourseProps, Instructor } from "@/models/CourseProps";
 import Link from "next/link";
-import createEnrollment from "@/services/Enrollments";
-import { CreateEnrollment } from "@/models/Enrollment";
+import { deleteEnrollment, createEnrollment } from "@/services/Enrollments";
+import { CreateEnrollment, Enrollment } from "@/models/Enrollment";
 import { useAuth } from "@/context/AuthProvider";
+import { useDispatch } from "react-redux";
+import { AppDispatch, useAppSelector } from "@/redux/store";
+import {
+  addEnrollment,
+  DeleteEnroll,
+  removeEnrollment,
+} from "@/redux/features/enrollmentListSlice";
 
 export default function CourseCard({ course, sections }: CourseProps) {
   const [dropdown, setDropdown] = useState(false);
   const [sectionIndex, setSectionIndex] = useState(0);
   const [registered, setRegistered] = useState(false);
+  const [id, setId] = useState<string>();
   const { user, setUser } = useAuth();
 
+  const dispatch = useDispatch<AppDispatch>();
+  const enrollments = useAppSelector(
+    (state) => state.enrollmentList.enrollments
+  );
+
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  function checkIsEnroll(id?: string) {
+    return enrollments.some((item) => item.id == id);
+  }
 
   const handleClickOutside = (event: MouseEvent) => {
     if (
@@ -26,7 +43,8 @@ export default function CourseCard({ course, sections }: CourseProps) {
   };
 
   const handleAddEnrollment = async () => {
-    const newEnrollment = {
+    const newEnrollment: Enrollment = {
+      id: "00",
       user_id: user.id,
       course_id: course.id,
       section_id: sections[sectionIndex].id,
@@ -34,10 +52,32 @@ export default function CourseCard({ course, sections }: CourseProps) {
       points: 0,
       round: "2024/1",
     };
+
     const addEnroll = await createEnrollment(newEnrollment);
-    console.log(addEnroll);
+
+    if (!addEnroll) {
+      return null;
+    }
+
+    setId(addEnroll.id);
+    newEnrollment.id = addEnroll.id.toString();
+
+    dispatch(addEnrollment(newEnrollment));
     setRegistered(!registered);
   };
+
+  function handleCourseRemove() {
+    if (!id) {
+      return null;
+    }
+    const deleteId: DeleteEnroll = { id: id };
+    console.log(deleteId);
+
+    const isDelete = deleteEnrollment(id);
+    dispatch(removeEnrollment(deleteId));
+
+    console.log(isDelete);
+  }
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -50,13 +90,11 @@ export default function CourseCard({ course, sections }: CourseProps) {
     // setRegistered(course.registered[section]);
   }, [sectionIndex]);
 
-  useEffect(() => {}, []);
-
   return (
     <div
       className={`flex flex-row m-auto w-[60%] ${
-        dropdown ? "bg-[#979797]" : "bg-white"
-      } item-center h-20 hover:bg-[#979797]`}
+        dropdown ? "bg-gray-300" : "bg-white"
+      } item-center h-20 hover:bg-gray-300`}
     >
       <div className="flex w-[18%] text-bold justify-center text-black items-center">
         {course.id}
@@ -108,11 +146,15 @@ export default function CourseCard({ course, sections }: CourseProps) {
       <button
         className="flex w-[8%] text-bold justify-center text-black items-center"
         onClick={() => {
-          handleAddEnrollment();
+          if (!checkIsEnroll(id)) {
+            handleAddEnrollment();
+          } else {
+            handleCourseRemove();
+          }
         }}
       >
         {/* {course.registered[section] ? ( */}
-        {registered ? (
+        {checkIsEnroll(id) ? (
           <PiCheckSquareBold size={32} />
         ) : (
           <PiPlusSquareBold size={32} />

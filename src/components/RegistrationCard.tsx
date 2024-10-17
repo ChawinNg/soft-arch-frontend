@@ -10,40 +10,15 @@ export default function RegistrationCard({
   onPointChange,
   onRemoveEnrollment,
 }: RegistrationProps) {
-  const [dropdown, setDropdown] = useState(false);
-  const [sectionIndex, setSectionIndex] = useState("0");
-  // const [registered, setRegistered] = useState(course.registered[section]);
   const [registered, setRegistered] = useState(false);
 
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
-
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node)
-    ) {
-      setDropdown(false);
-    }
-  };
-
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    onPointChange(enrollment.course_id, enrollment.points);
   }, []);
-
-  useEffect(() => {
-    // setRegistered(course.registered[section]);
-  }, [sectionIndex]);
-
-  useEffect(() => {}, []);
 
   return (
     <div
-      className={`flex flex-row w-full justify-center ${
-        dropdown ? "bg-[#979797]" : "bg-white"
-      } item-center h-20 hover:bg-[#979797]`}
+      className={`flex flex-row w-full justify-center ${"bg-white"} item-center h-20 hover:bg-gray-300`}
     >
       <div className="flex w-[15%] text-bold justify-center text-black items-center">
         {enrollment.course_id}
@@ -65,6 +40,7 @@ export default function RegistrationCard({
         <input
           type="text"
           className="w-1/2 px-2 border-black border-2 rounded-lg"
+          defaultValue={enrollment.points}
           onChange={(e) => {
             onPointChange(enrollment.course_id, parseInt(e.target.value) || 0);
           }}

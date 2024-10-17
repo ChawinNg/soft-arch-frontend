@@ -2,7 +2,7 @@ import { BsSortDown } from "react-icons/bs";
 
 export default function CourseHeader() {
   return (
-    <div className="flex flex-row m-auto w-[60%] bg-black item-center h-12 rounded-t-lg">
+    <div className="flex flex-row m-auto w-[60%] bg-slate-800 item-center h-12 rounded-t-lg">
       <div className="flex w-[18%] text-bold justify-center gap-2 items-center">
         <div className="text-white">Course ID</div>
         <BsSortDown size={16} color="white" />

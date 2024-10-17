@@ -2,14 +2,12 @@ import { BsSortDown } from "react-icons/bs";
 
 export default function RegistrationHeader() {
   return (
-    <div className="flex flex-row w-full bg-black item-center justify-center h-12 rounded-t-lg">
+    <div className="flex flex-row w-full bg-slate-800 item-center justify-center py-4 rounded-t-lg font-bold">
       <div className="flex w-[15%] text-bold justify-center gap-2 items-center">
         <div className="text-white">Course ID</div>
-        <BsSortDown size={16} color="white" />
       </div>
       <div className="flex w-[25%] text-bold justify-center gap-2 items-center">
         <div className="text-white">Name</div>
-        <BsSortDown size={16} color="white" />
       </div>
       <div className="flex w-[7%] text-bold justify-center text-white items-center">
         Credit
@@ -19,7 +17,6 @@ export default function RegistrationHeader() {
       </div>
       <div className="flex w-[15%] text-bold justify-center gap-2 items-center">
         <div className="text-white">Bids</div>
-        <BsSortDown size={16} color="white" />
       </div>
       <div className="flex w-[10%] text-bold justify-center text-white items-center">
         Register

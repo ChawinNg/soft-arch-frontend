@@ -6,23 +6,27 @@ import { UserMe } from "@/models/User";
 export default function RegistrationSummary({
   totalPoints,
   user,
+  handleSave,
 }: {
   totalPoints: number;
   user: UserMe;
+  handleSave: any;
 }) {
-  const [pointUsed, setPointUsed] = useState(0);
   const [totalaCredit, setTotalCredit] = useState(0);
+  const isDisabled = user.points < totalPoints;
 
   return (
-    <div className="flex flex-col gap-y-8 py-10 w-1/6">
-      <UserPoint />
+    <div className="flex flex-col gap-y-8 py-10 w-1/6 font-bold">
+      <UserPoint user={user} />
       <table className="table-auto rounded-xl w-full text-center">
         <tbody>
-          <tr className="bg-black text-white text-center">
+          <tr className="bg-slate-800 text-white text-center">
             <th className="py-3 rounded-t-xl">Summary</th>
           </tr>
           <tr className="bg-white">
-            <td className="px-4 py-3">Total Point Used : {totalPoints}</td>
+            <td className={`px-4 py-3 ${isDisabled ? "text-red-500" : null}`}>
+              Total Point Used : {totalPoints}
+            </td>
           </tr>
           <tr className="bg-white">
             <td className="px-4 py-3 rounded-b-xl">
@@ -32,8 +36,14 @@ export default function RegistrationSummary({
         </tbody>
       </table>
 
-      <button className="w-full bg-black text-white py-3 rounded-xl">
-        Confirm
+      <button
+        className={`w-full text-white py-3 rounded-xl hover:bg-gray-600 hover:scale-110 duration-300 ${
+          isDisabled ? "bg-red-600" : "bg-slate-800"
+        }`}
+        onClick={handleSave}
+        disabled={isDisabled}
+      >
+        {isDisabled ? "Points overused!" : "Save"}
       </button>
     </div>
   );

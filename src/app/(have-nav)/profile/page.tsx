@@ -77,7 +77,7 @@ const ProfilePage = () => {
                 </button>
                 <button
                   type="submit"
-                  className="bg-black text-white normal-text p-2 m-2 rounded-lg w-full h-2/3"
+                  className="bg-slate-800 text-white normal-text p-2 m-2 rounded-lg w-full h-2/3"
                 >
                   Confirm
                 </button>
@@ -94,7 +94,7 @@ const ProfilePage = () => {
             <div className="flex justify-center w-full h-full">
               <button
                 onClick={() => setIsEditing(!isEditing)}
-                className=" text-white normal-text py-1 px-2 my-5 mx-auto rounded-lg w-2/3 h-1/2 bg-black hover:bg-slate-600 "
+                className=" text-white normal-text py-1 px-2 my-5 mx-auto rounded-lg w-2/3 h-1/2 bg-slate-800 hover:bg-slate-600 "
               >
                 Change Password
               </button>
