@@ -13,13 +13,11 @@ export const AuthProvider = ({ children }) => {
           method: "GET",
           credentials: "include",
         });
-        if (!response.ok) {
-          window.location.href = process.env.NEXT_PUBLIC_HTTP_FRONTEND_HOST;
-          throw new Error("Failed to fetch current user");
+        if (response) {
+          const data = await response.json();
+          console.log(data);
+          setUser(data.user);
         }
-        const data = await response.json();
-        console.log(data);
-        setUser(data.user);
       } catch (error) {
         console.error(error);
       }
