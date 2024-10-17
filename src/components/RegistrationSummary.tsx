@@ -2,17 +2,21 @@
 import { useState } from "react";
 import UserPoint from "./UserPoint";
 import { UserMe } from "@/models/User";
+import Notification from "./Notification";
 
 export default function RegistrationSummary({
   totalPoints,
   user,
   handleSave,
+  isVisible,
 }: {
   totalPoints: number;
   user: UserMe;
   handleSave: any;
+  isVisible: boolean;
 }) {
   const [totalaCredit, setTotalCredit] = useState(0);
+
   const isDisabled = user.points < totalPoints;
 
   return (
@@ -40,11 +44,14 @@ export default function RegistrationSummary({
         className={`w-full text-white py-3 rounded-xl hover:bg-gray-600 hover:scale-110 duration-300 ${
           isDisabled ? "bg-red-600" : "bg-slate-800"
         }`}
-        onClick={handleSave}
+        onClick={() => {
+          handleSave();
+        }}
         disabled={isDisabled}
       >
         {isDisabled ? "Points overused!" : "Save"}
       </button>
+      {isVisible && <Notification />}
     </div>
   );
 }

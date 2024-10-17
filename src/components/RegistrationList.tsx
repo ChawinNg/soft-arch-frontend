@@ -14,6 +14,7 @@ import RegistrationSummary from "./RegistrationSummary";
 
 export default function RegistrationList({ user }: { user: UserMe }) {
   const [enrollments, setEnrollments] = useState<Enrollment[]>([]);
+  const [isVisible, setIsVisible] = useState(false);
   const [points, setPoints] = useState<{ [key: string]: number }>(
     enrollments?.reduce((acc, course) => {
       acc[course.id] = course.points;
@@ -66,8 +67,11 @@ export default function RegistrationList({ user }: { user: UserMe }) {
         round: "2024/1",
       };
       const updateObj = updateEnrollment(enrollment.id, newEnroll);
-      console.log(updateObj);
     }
+    setIsVisible(true);
+    setTimeout(() => {
+      setIsVisible(false);
+    }, 6000);
   }
 
   return (
@@ -101,6 +105,7 @@ export default function RegistrationList({ user }: { user: UserMe }) {
         totalPoints={totalPoints}
         user={user}
         handleSave={handleSave}
+        isVisible={isVisible}
       />
     </div>
   );
