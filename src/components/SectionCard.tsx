@@ -22,10 +22,6 @@ export default function SectionCard({ section }: SectionProps) {
             .map((instructor: Instructor) => instructor.display_name)
             .join(", ")}
       </div>
-      <div className="flex w-[20%] justify-center items-center">
-        {" "}
-        <PiPlusSquareBold size={32} />
-      </div>
     </div>
   );
 }

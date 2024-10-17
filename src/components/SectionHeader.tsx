@@ -5,7 +5,6 @@ export default function SectionHeader() {
       <div className="flex w-[20%] justify-center items-center">Day</div>
       <div className="flex w-[20%] justify-center items-center">Capacity</div>
       <div className="flex w-[20%] justify-center items-center">Instructor</div>
-      <div className="flex w-[20%] justify-center items-center">Register</div>
     </div>
   );
 }
