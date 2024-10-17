@@ -10,6 +10,7 @@ export default function CourseDetail() {
   const [course, setCourse] = useState<Course | null>();
   const [sections, setSections] = useState<Section[] | null>();
   const params = useParams<{ id: string }>();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -26,7 +27,7 @@ export default function CourseDetail() {
   }, []);
 
   return (
-    <div className="relative min-h-screen flex flex-col m-4 md:m-20 bg-white rounded-lg p-8 md:p-16">
+    <div className="w-[90%] flex flex-col bg-white rounded-b-lg h-full p-8 md:p-16">
       <div className="flex flex-col">
         <Link
           href={`/`}
@@ -53,7 +54,9 @@ export default function CourseDetail() {
             </div>
 
             <SectionHeader />
-            {sections?.map((section) => (<SectionCard section={section}/>))}
+            {sections?.map((section) => (
+              <SectionCard section={section} />
+            ))}
           </>
         )}
       </div>

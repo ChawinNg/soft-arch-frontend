@@ -122,7 +122,7 @@ const RegisterPage = () => {
         <div className="flex justify-center mt-4">
           <button
             type="submit"
-            className="bg-black text-white normal-text py-1 px-2 my-3 mx-auto rounded-lg w-2/3 h-2/3"
+            className="bg-slate-800 text-white normal-text py-1 px-2 my-3 mx-auto rounded-lg w-2/3 h-2/3"
           >
             Register
           </button>

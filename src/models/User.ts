@@ -22,4 +22,5 @@ export type UserMe = {
   surname: string;
   email: string;
   password: string;
+  points: number;
 };

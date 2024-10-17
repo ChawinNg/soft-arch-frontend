@@ -57,7 +57,7 @@ const LoginPage = () => {
         <div className="flex justify-center mx-2 my-6 w-full">
           <button
             type="submit"
-            className="bg-black text-white normal-text p-2 my-2 rounded-lg w-full h-2/3"
+            className="bg-slate-800 text-white normal-text p-2 my-2 rounded-lg w-full h-2/3"
           >
             Login
           </button>

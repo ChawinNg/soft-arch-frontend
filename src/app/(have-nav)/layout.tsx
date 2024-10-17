@@ -9,7 +9,7 @@ export default function AuthLayout({
 }) {
   return (
     <AuthProvider>
-      <div className="w-screen h-screen bg-[#D9D9D9]">
+      <div className="w-screen h-screen">
         <div className="w-full h-[10%]">
           <NavBar />
         </div>

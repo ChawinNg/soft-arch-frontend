@@ -93,8 +93,8 @@ export default function CourseCard({ course, sections }: CourseProps) {
   return (
     <div
       className={`flex flex-row m-auto w-[60%] ${
-        dropdown ? "bg-[#979797]" : "bg-white"
-      } item-center h-20 hover:bg-[#979797]`}
+        dropdown ? "bg-gray-300" : "bg-white"
+      } item-center h-20 hover:bg-gray-300`}
     >
       <div className="flex w-[18%] text-bold justify-center text-black items-center">
         {course.id}

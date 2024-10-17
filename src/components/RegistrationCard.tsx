@@ -10,35 +10,15 @@ export default function RegistrationCard({
   onPointChange,
   onRemoveEnrollment,
 }: RegistrationProps) {
-  const [dropdown, setDropdown] = useState(false);
   const [registered, setRegistered] = useState(false);
-
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
-
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node)
-    ) {
-      setDropdown(false);
-    }
-  };
 
   useEffect(() => {
     onPointChange(enrollment.course_id, enrollment.points);
   }, []);
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
   return (
     <div
-      className={`flex flex-row w-full justify-center ${
-        dropdown ? "bg-[#979797]" : "bg-white"
-      } item-center h-20 hover:bg-[#979797]`}
+      className={`flex flex-row w-full justify-center ${"bg-white"} item-center h-20 hover:bg-gray-300`}
     >
       <div className="flex w-[15%] text-bold justify-center text-black items-center">
         {enrollment.course_id}
