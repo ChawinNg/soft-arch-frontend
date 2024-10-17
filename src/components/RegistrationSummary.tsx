@@ -6,11 +6,12 @@ import { UserMe } from "@/models/User";
 export default function RegistrationSummary({
   totalPoints,
   user,
+  handleSave,
 }: {
   totalPoints: number;
   user: UserMe;
+  handleSave: any;
 }) {
-  const [pointUsed, setPointUsed] = useState(0);
   const [totalaCredit, setTotalCredit] = useState(0);
 
   return (
@@ -32,8 +33,11 @@ export default function RegistrationSummary({
         </tbody>
       </table>
 
-      <button className="w-full bg-black text-white py-3 rounded-xl">
-        Confirm
+      <button
+        className="w-full bg-black text-white py-3 rounded-xl"
+        onClick={handleSave}
+      >
+        Save
       </button>
     </div>
   );

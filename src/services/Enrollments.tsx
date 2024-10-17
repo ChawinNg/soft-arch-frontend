@@ -17,7 +17,7 @@ export async function getUserEnrollment(userId: string) {
   }
 }
 
-export default async function createEnrollment(enrollment: CreateEnrollment) {
+export async function createEnrollment(enrollment: CreateEnrollment) {
   try {
     const response = await fetch(`http://localhost:8080/api/v1/enrollments`, {
       method: "POST",
@@ -33,6 +33,30 @@ export default async function createEnrollment(enrollment: CreateEnrollment) {
     throw new Error("Failed to fetch paginated courses");
   }
 }
+
+export async function updateEnrollment(
+  id: string,
+  enrollment: CreateEnrollment
+) {
+  try {
+    const response = await fetch(
+      `http://localhost:8080/api/v1/enrollments/${id}`,
+      {
+        method: "PUT",
+        body: JSON.stringify(enrollment),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching paginated courses:", error);
+    throw new Error("Failed to fetch paginated courses");
+  }
+}
+
 export async function deleteEnrollment(courseId: string) {
   try {
     const response = await fetch(

@@ -5,11 +5,10 @@ import CourseHeader from "./CourseHeader";
 import { useEffect, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
+import { Enrollment } from "@/models/Enrollment";
+import { getUserEnrollment } from "@/services/Enrollments";
+import { useAuth } from "@/context/AuthProvider";
 
-type CourseData = {
-  course: Course;
-  sections: Section[];
-};
 async function getCoursesPaginated(page: number, limit: number = 10) {
   try {
     const response = await fetch(
@@ -33,15 +32,19 @@ async function getCoursesPaginated(page: number, limit: number = 10) {
 }
 
 export default function CourseList() {
-  const [courses, setCourses] = useState<CourseData[]>([]);
+  const [courses, setCourses] = useState([]);
+  const [enrollments, setEnrollments] = useState<Enrollment[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [page, setPage] = useState<number>(1);
+
+  const { user, setUser } = useAuth();
 
   useEffect(() => {
     const fetchCourses = async () => {
       setLoading(true);
       try {
         const data = await getCoursesPaginated(page, 3);
+        if (!data.courses) setPage(page - 1);
         setCourses(data.courses || []);
         console.log(data.courses);
       } catch (error) {
@@ -51,7 +54,6 @@ export default function CourseList() {
         setLoading(false);
       }
     };
-
     fetchCourses();
   }, [page]);
 

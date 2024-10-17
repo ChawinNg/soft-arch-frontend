@@ -11,8 +11,6 @@ export default function RegistrationCard({
   onRemoveEnrollment,
 }: RegistrationProps) {
   const [dropdown, setDropdown] = useState(false);
-  const [sectionIndex, setSectionIndex] = useState("0");
-  // const [registered, setRegistered] = useState(course.registered[section]);
   const [registered, setRegistered] = useState(false);
 
   const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -27,18 +25,15 @@ export default function RegistrationCard({
   };
 
   useEffect(() => {
+    onPointChange(enrollment.course_id, enrollment.points);
+  }, []);
+
+  useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
-  useEffect(() => {
-    // setRegistered(course.registered[section]);
-  }, [sectionIndex]);
-
-  useEffect(() => {}, []);
-
   return (
     <div
       className={`flex flex-row w-full justify-center ${
@@ -65,6 +60,7 @@ export default function RegistrationCard({
         <input
           type="text"
           className="w-1/2 px-2 border-black border-2 rounded-lg"
+          defaultValue={enrollment.points}
           onChange={(e) => {
             onPointChange(enrollment.course_id, parseInt(e.target.value) || 0);
           }}
