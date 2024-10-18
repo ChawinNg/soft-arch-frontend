@@ -6,11 +6,13 @@ import Notification from "./Notification";
 
 export default function RegistrationSummary({
   totalPoints,
+  totalCredits,
   user,
   handleSave,
   isVisible,
 }: {
   totalPoints: number;
+  totalCredits: number;
   user: UserMe;
   handleSave: any;
   isVisible: boolean;
@@ -34,7 +36,7 @@ export default function RegistrationSummary({
           </tr>
           <tr className="bg-white">
             <td className="px-4 py-3 rounded-b-xl">
-              Total Credits : {totalaCredit}
+              Total Credits : {totalCredits}
             </td>
           </tr>
         </tbody>

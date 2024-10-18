@@ -27,6 +27,11 @@ export default function RegistrationList({ user }: { user: UserMe }) {
     0
   );
 
+  const totalCredits = enrollments.reduce(
+    (sum, enrollment) => sum + enrollment.course_credit,
+    0
+  );
+
   useEffect(() => {
     const fetchCourses = async () => {
       try {
@@ -103,6 +108,7 @@ export default function RegistrationList({ user }: { user: UserMe }) {
       </div>
       <RegistrationSummary
         totalPoints={totalPoints}
+        totalCredits={totalCredits}
         user={user}
         handleSave={handleSave}
         isVisible={isVisible}
