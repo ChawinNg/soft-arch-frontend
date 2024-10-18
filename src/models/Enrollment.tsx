@@ -2,6 +2,8 @@ export interface Enrollment {
   id: string;
   user_id: string;
   course_id: string;
+  course_name: string;
+  course_credit: number;
   section_id: number;
   section: number;
   points: number;

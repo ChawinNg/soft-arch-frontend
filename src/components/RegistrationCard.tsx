@@ -25,13 +25,11 @@ export default function RegistrationCard({
       </div>
       <div className="flex w-[25%] text-bold justify-center text-black items-center">
         <Link href={`/courses/${enrollment.course_id}`}>
-          {"test1"}
-          {/* {course.course_name} */}
+          {enrollment.course_name}
         </Link>
       </div>
       <div className="flex w-[7%] text-bold justify-center text-black items-center">
-        {/* {course.credit} */}
-        {"test2"}
+        {enrollment.course_credit}
       </div>
       <div className="flex w-[15%] text-bold justify-center text-black items-center">
         {enrollment.section}

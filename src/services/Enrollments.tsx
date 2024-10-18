@@ -3,7 +3,7 @@ import { CreateEnrollment } from "@/models/Enrollment";
 export async function getUserEnrollment(userId: string) {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/v1/enrollments/${userId}`,
+      `http://localhost:8080/api/v1/enrollments/user/${userId}`,
       {
         method: "GET",
         credentials: "include",
