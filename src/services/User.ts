@@ -41,6 +41,23 @@ export async function login(userInfo: UserLogin) {
   }
 }
 
+export async function logout() {
+  try {
+    const response = await fetch("http://localhost:8080/api/v1/logout", {
+      method: "GET",
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      throw new Error("can't logout");
+    }
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 export async function getMe() {
   try {
     const response = await fetch("http://localhost:8080/api/v1/users/me", {
