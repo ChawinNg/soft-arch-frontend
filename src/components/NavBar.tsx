@@ -15,7 +15,7 @@ const NavBar = () => {
   const handleLogout = async () => {
     const res = await logout();
     console.log(res);
-    router.push("/login")
+    router.push("/login");
   };
   return (
     <div className="w-full h-full bg-slate-800 flex flex-row items-center justify-between px-5">
@@ -56,7 +56,9 @@ const NavBar = () => {
           ) : null}
         </div>
       ) : (
-        <Link className="normal-text text-white"  href={"/login"} >login</Link>
+        <Link className="normal-text text-white" href={"/login"}>
+          Login
+        </Link>
       )}
     </div>
   );
