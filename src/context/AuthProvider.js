@@ -13,11 +13,13 @@ export const AuthProvider = ({ children }) => {
           method: "GET",
           credentials: "include",
         });
-        if (response) {
-          const data = await response.json();
-          console.log(data);
-          setUser(data.user);
+        if (!response.ok) {
+          window.location.href = `http://localhost:3000/login`;
+          throw new Error("Failed to fetch current user");
         }
+        const data = await response.json();
+        console.log(data);
+        setUser(data.user);
       } catch (error) {
         console.error(error);
       }
