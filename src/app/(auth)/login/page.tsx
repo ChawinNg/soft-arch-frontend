@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { User, UserLogin} from "@/models/User";
+import { User, UserLogin } from "@/models/User";
 import { login } from "@/services/User";
 import Link from "next/link";
 
@@ -46,7 +46,7 @@ const LoginPage = () => {
           </label>
           <input
             id="password"
-            type="text"
+            type="password"
             name="Password"
             required
             className="text-input"
