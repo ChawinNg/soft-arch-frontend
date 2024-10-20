@@ -73,3 +73,26 @@ export async function deleteEnrollment(courseId: string) {
     throw new Error("Failed to fetch paginated courses");
   }
 }
+
+export async function deductPoints(
+  id: string,
+  points:number,
+) {
+  try {
+    const response = await fetch(
+      `http://localhost:8080/api/v1/points/${id}`,
+      {
+        method: "POST",
+        body: JSON.stringify({points}),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error deducting points:", error);
+    throw new Error("Failed to deduct point from user.");
+  }
+}
