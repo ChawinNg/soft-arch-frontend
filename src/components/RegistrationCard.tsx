@@ -13,7 +13,7 @@ export default function RegistrationCard({
   const [registered, setRegistered] = useState(false);
 
   useEffect(() => {
-    onPointChange(enrollment.course_id, enrollment.points);
+    onPointChange(enrollment.course_id, enrollment.section, enrollment.points);
   }, []);
 
   return (
@@ -40,7 +40,11 @@ export default function RegistrationCard({
           className="w-1/2 px-2 border-black border-2 rounded-lg"
           defaultValue={enrollment.points}
           onChange={(e) => {
-            onPointChange(enrollment.course_id, parseInt(e.target.value) || 0);
+            onPointChange(
+              enrollment.course_id,
+              enrollment.section,
+              parseInt(e.target.value) || 0
+            );
           }}
         ></input>
       </div>

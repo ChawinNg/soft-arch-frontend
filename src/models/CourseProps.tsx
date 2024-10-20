@@ -41,6 +41,6 @@ export interface CourseProps {
 
 export interface RegistrationProps {
   enrollment: Enrollment;
-  onPointChange: (courseId: string, newPoints: number) => void;
+  onPointChange: (courseId: string, section: number, newPoints: number) => void;
   onRemoveEnrollment: (courseId: string) => void;
 }

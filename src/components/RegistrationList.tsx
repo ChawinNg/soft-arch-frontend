@@ -15,17 +15,25 @@ import RegistrationSummary from "./RegistrationSummary";
 export default function RegistrationList({ user }: { user: UserMe }) {
   const [enrollments, setEnrollments] = useState<Enrollment[]>([]);
   const [isVisible, setIsVisible] = useState(false);
-  const [points, setPoints] = useState<{ [key: string]: number }>(
+  const [points, setPoints] = useState<{
+    [courseId: string]: { [section: number]: number };
+  }>(
     enrollments?.reduce((acc, course) => {
-      acc[course.id] = course.points;
+      if (!acc[course.id]) {
+        acc[course.id] = {};
+      }
+      acc[course.id][course.section] = course.points;
       return acc;
-    }, {} as { [key: string]: number })
+    }, {} as { [courseId: string]: { [section: number]: number } })
   );
 
-  const totalPoints = Object.values(points).reduce(
-    (sum, value) => sum + value,
-    0
-  );
+  const totalPoints = Object.values(points).reduce((courseAcc, sections) => {
+    const sectionPoints = Object.values(sections).reduce(
+      (sectionAcc, points) => sectionAcc + points,
+      0
+    );
+    return courseAcc + sectionPoints;
+  }, 0);
 
   const totalCredits = enrollments.reduce(
     (sum, enrollment) => sum + enrollment.course_credit,
@@ -48,10 +56,17 @@ export default function RegistrationList({ user }: { user: UserMe }) {
     fetchCourses();
   }, []);
 
-  function handlePointsChange(courseId: string, newPoints: number) {
+  function handlePointsChange(
+    courseId: string,
+    section: number,
+    newPoints: number
+  ) {
     setPoints((prevPoints) => ({
       ...prevPoints,
-      [courseId]: newPoints, // Update points for the specific course
+      [courseId]: {
+        ...prevPoints[courseId], // Keep other sections unchanged
+        [section]: newPoints, // Update points for the specific section
+      },
     }));
   }
 
@@ -68,7 +83,7 @@ export default function RegistrationList({ user }: { user: UserMe }) {
         course_id: enrollment.course_id,
         section_id: enrollment.section_id,
         section: enrollment.section,
-        points: points[enrollment.course_id],
+        points: points[enrollment.course_id][enrollment.section],
         round: "2024/1",
       };
       const updateObj = updateEnrollment(enrollment.id, newEnroll);

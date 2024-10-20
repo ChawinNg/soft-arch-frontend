@@ -17,8 +17,6 @@ export default function RegistrationSummary({
   handleSave: any;
   isVisible: boolean;
 }) {
-  const [totalaCredit, setTotalCredit] = useState(0);
-
   const isDisabled = user.points < totalPoints;
 
   return (

@@ -47,6 +47,8 @@ export default function CourseCard({ course, sections }: CourseProps) {
       id: "00",
       user_id: user.id,
       course_id: course.id,
+      course_name: course.course_name,
+      course_credit: course.credit,
       section_id: sections[sectionIndex].id,
       section: sections[sectionIndex].section,
       points: 0,
@@ -59,8 +61,8 @@ export default function CourseCard({ course, sections }: CourseProps) {
       return null;
     }
 
-    setId(addEnroll.id);
-    newEnrollment.id = addEnroll.id.toString();
+    setId(addEnroll.data);
+    newEnrollment.id = addEnroll.data.toString();
 
     dispatch(addEnrollment(newEnrollment));
     setRegistered(!registered);
