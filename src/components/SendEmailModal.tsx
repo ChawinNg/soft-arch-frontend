@@ -55,7 +55,7 @@ export default function SendEmailModal({
       from_name: user.name + " " + user.surname,
       to_email: selectedInstructor.email
         ? selectedInstructor.email
-        : "jakrinsukon@gmail.com", //change this to your email
+        : "", //change this to your email
       header: headerMessage,
       body: message,
     };

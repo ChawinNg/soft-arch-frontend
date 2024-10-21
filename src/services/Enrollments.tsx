@@ -1,4 +1,4 @@
-import { CreateEnrollment } from "@/models/Enrollment";
+import { CreateEnrollment, EnrollmentSummary } from "@/models/Enrollment";
 
 export async function getUserEnrollment(userId: string) {
   try {
@@ -12,8 +12,25 @@ export async function getUserEnrollment(userId: string) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching paginated courses:", error);
-    throw new Error("Failed to fetch paginated courses");
+    console.error("Error fetching user enrollment:", error);
+    throw new Error("Failed to fetch user enrollment");
+  }
+}
+
+export async function getUserEnrollmentResult(userId: string) {
+  try {
+    const response = await fetch(
+      `http://localhost:8080/api/v1/enrollments/result/user/${userId}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+    const data = await response.json();
+    return data.summary_data;
+  } catch (error) {
+    console.error("Error fetching user enrollment result:", error);
+    throw new Error("Failed to fetch user enrollment result");
   }
 }
 

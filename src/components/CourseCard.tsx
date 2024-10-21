@@ -56,7 +56,7 @@ export default function CourseCard({ course, sections }: CourseProps) {
     };
 
     const addEnroll = await createEnrollment(newEnrollment);
-
+    console.log("add enroll", addEnroll);
     if (!addEnroll) {
       return null;
     }

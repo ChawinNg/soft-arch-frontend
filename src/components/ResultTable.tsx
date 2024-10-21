@@ -1,9 +1,9 @@
-import { mockResultInterface } from "@/app/(have-nav)/result/page";
+import { EnrollmentSummary } from "@/models/Enrollment";
 
 export default function ResultTable({
   result,
 }: {
-  result: mockResultInterface[];
+  result: EnrollmentSummary[];
 }) {
   const resultHeaders = [
     "Course ID",
@@ -33,7 +33,7 @@ export default function ResultTable({
         </thead>
         {result ? (
           <tbody>
-            {result.map((course: mockResultInterface, index) => (
+            {result.map((course: EnrollmentSummary, index) => (
               <tr key={index} className="border-t">
                 <td className="py-2 px-4">{course.course_id}</td>
                 <td className="py-2 px-4">{course.course_name}</td>

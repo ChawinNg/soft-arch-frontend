@@ -19,6 +19,8 @@ export const AuthProvider = ({ children }) => {
         }
         const data = await response.json();
         console.log(data);
+        console.log(data.user.points);
+
         setUser(data.user);
       } catch (error) {
         console.error(error);

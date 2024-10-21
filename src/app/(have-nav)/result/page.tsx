@@ -1,16 +1,12 @@
 "use client";
+"use client";
 import ResultTable from "@/components/ResultTable";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthProvider";
+import { getUserEnrollment, getUserEnrollmentResult } from "@/services/Enrollments";
+import { Enrollment, EnrollmentSummary } from "@/models/Enrollment";
 import { deductPoints } from "@/services/Enrollments";
 
-export type mockResultInterface = {
-  course_id: string;
-  course_name: string;
-  course_credit: number;
-  section: number;
-  points: number;
-  result: boolean;
-};
 
 const mockResult = [
   {
@@ -44,9 +40,28 @@ export default function Result() {
       console.error("Error confirming results:", error);
     }
   };
+
+
+  const [enrollment, setEnrollment] = useState<EnrollmentSummary[]>(
+    [] as EnrollmentSummary[]
+  );
+
+  useEffect(() => {
+    const fetchUserEnrollment = async () => {
+      const  res : EnrollmentSummary[] = await getUserEnrollmentResult(user.id);
+      console.log(res);
+      if (res) {
+        setEnrollment(res);
+      }
+    };
+    if (user) {
+      fetchUserEnrollment();
+    }
+  }, [user]);
+
   return (
     <div className="min-h-screen flex justify-center items-center flex-col">
-      <ResultTable result={mockResult} />
+      <ResultTable result={enrollment} />
       <button
         onClick={handleConfirmResult}
         className="bg-slate-800 text-white py-3 px-2 rounded-lg font-bold hover:bg-gray-600"
