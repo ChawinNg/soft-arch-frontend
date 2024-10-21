@@ -91,3 +91,24 @@ export async function deductPoints(id: string, points: number) {
     throw new Error("Failed to deduct point from user.");
   }
 }
+
+export async function summarizeResult(round: string) {
+  try {
+    const response = await fetch(
+      `http://localhost:8080/api/v1/enrollments/summarize`,
+      {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify({ round: round }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error deducting points:", error);
+    throw new Error("Failed to deduct point from user.");
+  }
+}
