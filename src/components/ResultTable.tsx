@@ -1,6 +1,10 @@
 import { mockResultInterface } from "@/app/(have-nav)/result/page";
 
-export default function ResultTable({result}:{result:mockResultInterface[]}) {
+export default function ResultTable({
+  result,
+}: {
+  result: mockResultInterface[];
+}) {
   const resultHeaders = [
     "Course ID",
     "Name",
@@ -13,10 +17,17 @@ export default function ResultTable({result}:{result:mockResultInterface[]}) {
   return (
     <div className="p-6 rounded-lg h-[100%] justify-center flex flex-col">
       <table className="min-w-full bg-white shadow-md rounded-lg">
-        <thead className="bg-black text-white">
+        <thead className="bg-slate-800 text-white">
           <tr>
             {resultHeaders.map((header: string, index) => (
-              <th className="py-2 px-4" key={index}>{header}</th>
+              <th
+                className={`py-2 px-4 ${index === 0 && "rounded-tl-lg"} ${
+                  index === resultHeaders.length - 1 && "rounded-tr-lg"
+                }`}
+                key={index}
+              >
+                {header}
+              </th>
             ))}
           </tr>
         </thead>
@@ -47,10 +58,15 @@ export default function ResultTable({result}:{result:mockResultInterface[]}) {
       <div className="mt-6">
         <p className="text-lg font-bold">
           Total credit:{" "}
-          { result? result.reduce((carry, course) => carry + course.course_credit, 0): 0}
+          {result
+            ? result.reduce((carry, course) => carry + course.course_credit, 0)
+            : 0}
         </p>
         <p className="text-lg font-bold">
-          Coin used: {result? result.reduce((carry, course) => carry + course.points, 0): 0}
+          Coin used:{" "}
+          {result
+            ? result.reduce((carry, course) => carry + course.points, 0)
+            : 0}
         </p>
       </div>
     </div>

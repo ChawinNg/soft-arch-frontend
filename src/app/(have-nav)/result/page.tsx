@@ -1,5 +1,6 @@
-"use client"
+"use client";
 import ResultTable from "@/components/ResultTable";
+import { useAuth } from "@/context/AuthProvider";
 import { deductPoints } from "@/services/Enrollments";
 
 export type mockResultInterface = {
@@ -30,18 +31,28 @@ const mockResult = [
   },
 ];
 export default function Result() {
-    const handleConfirmResult = async () => {
-        const points = mockResult.reduce((carry, course) => carry + course.points, 0)
-        try {
-            //   const response = await deductPoints(user_id, points);
-        } catch (error) {
-          console.error("Error confirming results:", error);
-        }
-      };
+  const { user, setUser } = useAuth();
+  const handleConfirmResult = async () => {
+    const points = mockResult.reduce(
+      (carry, course) => carry + course.points,
+      0
+    );
+    try {
+      const response = await deductPoints(user.id, points);
+      console.log(response);
+    } catch (error) {
+      console.error("Error confirming results:", error);
+    }
+  };
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-300 flex-col">
-      <ResultTable result={mockResult}/>
-      <button onClick={handleConfirmResult} className="bg-black text-white py-3 px-2 rounded-lg hover:opacity-70">Confirm Result</button>
+    <div className="min-h-screen flex justify-center items-center flex-col">
+      <ResultTable result={mockResult} />
+      <button
+        onClick={handleConfirmResult}
+        className="bg-slate-800 text-white py-3 px-2 rounded-lg font-bold hover:bg-gray-600"
+      >
+        Confirm Result
+      </button>
     </div>
   );
 }
