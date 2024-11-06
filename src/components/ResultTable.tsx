@@ -10,6 +10,7 @@ export default function ResultTable({
     "Name",
     "Credit",
     "Section",
+    "Round",
     "Bids",
     "Result",
   ];
@@ -33,15 +34,16 @@ export default function ResultTable({
         </thead>
         {result ? (
           <tbody>
-            {result.map((course: EnrollmentSummary, index) => (
+            {result.map((enrollSum: EnrollmentSummary, index) => (
               <tr key={index} className="border-t">
-                <td className="py-2 px-4">{course.course_id}</td>
-                <td className="py-2 px-4">{course.course_name}</td>
-                <td className="py-2 px-4">{course.course_credit}</td>
-                <td className="py-2 px-4">{course.section}</td>
-                <td className="py-2 px-4">{course.points}</td>
+                <td className="py-2 px-4">{enrollSum.course_id}</td>
+                <td className="py-2 px-4">{enrollSum.course_name}</td>
+                <td className="py-2 px-4">{enrollSum.course_credit}</td>
+                <td className="py-2 px-4">{enrollSum.section}</td>
+                <td className="py-2 px-4">{enrollSum.round}</td>
+                <td className="py-2 px-4">{enrollSum.points}</td>
                 <td className="py-2 px-4 text-center">
-                  {course.result ? (
+                  {enrollSum.result ? (
                     <span className="text-green-500 text-xl">✔</span>
                   ) : (
                     <span className="text-red-500 text-xl">✘</span>
@@ -59,13 +61,13 @@ export default function ResultTable({
         <p className="text-lg font-bold">
           Total credit:{" "}
           {result
-            ? result.reduce((carry, course) => carry + course.course_credit, 0)
+            ? result.reduce((carry, enrollSum) => carry + enrollSum.course_credit, 0)
             : 0}
         </p>
         <p className="text-lg font-bold">
           Coin used:{" "}
           {result
-            ? result.reduce((carry, course) => carry + course.points, 0)
+            ? result.reduce((carry, enrollSum) => carry + enrollSum.points, 0)
             : 0}
         </p>
       </div>
