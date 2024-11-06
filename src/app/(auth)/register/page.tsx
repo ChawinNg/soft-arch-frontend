@@ -18,7 +18,7 @@ const RegisterPage = () => {
     e.preventDefault();
     console.log(tmpUser);
 
-    if (tmpUser.confirm_password !== tmpUser.Password) {
+    if (tmpUser.confirm_password !== tmpUser.password) {
       console.log("wrong");
     } else {
       const { confirm_password, ...user } = tmpUser;
