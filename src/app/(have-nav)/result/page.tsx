@@ -8,6 +8,7 @@ import {
   getUserEnrollmentResult,
 } from "@/services/Enrollments";
 import { Enrollment, EnrollmentSummary } from "@/models/Enrollment";
+import Image from "next/image";
 
 export default function Result() {
   const { user } = useAuth();
@@ -30,7 +31,15 @@ export default function Result() {
 
   return (
     <div className="min-h-screen flex justify-center items-center flex-col">
-      {enrollment.length === 0 ? null : <ResultTable result={enrollment} />}
+      {enrollment.length === 0 ? <div className="w-2/3 flex flex-col justify-center items-center h-full gap-y-4 bg-white py-8 rounded-xl">
+            <div>You didn't have any enroll result!</div>
+            <Image
+              src={"/img/select_course.jpg"}
+              alt={"no image"}
+              width={400}
+              height={400}
+            />
+          </div> : <ResultTable result={enrollment} />}
     </div>
   );
 }
