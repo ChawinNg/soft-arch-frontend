@@ -95,7 +95,7 @@ const RegisterPage = () => {
             <input
               id="password"
               type="text"
-              name="Password"
+              name="password"
               required
               className="text-input"
               onChange={handleFormChange}

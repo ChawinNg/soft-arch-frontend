@@ -1,6 +1,6 @@
 "use client";
 import ProfilePic from "@/components/ProfilePic";
-import { getMe, updatePassword } from "@/services/User";
+import { checkPassword, getMe, logout, updatePassword } from "@/services/User";
 import { useState, useEffect } from "react";
 import { UserMe } from "@/models/User";
 
@@ -22,19 +22,22 @@ const ProfilePage = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    if (currentPass === me.password) {
-      const res = await updatePassword(newPass);
+    const isSame = await checkPassword(currentPass)
+    if (isSame) {
+      const res = await updatePassword(me.id,newPass);
       if (res) {
         setIsEditing(!isEditing);
       }
     }
+    const res = await logout();
+    window.location.href = `http://localhost:3000/login`;
   };
   return (
     <div className="w-full h-full flex justify-center items-center">
       {isEditing ? (
         <div className="fixed top-0 left-0 z-10 bg-opacity-50 w-full h-screen bg-gray-600 flex justify-center items-center">
           <div className="bg-white  w-1/5 h-1/3 flex flex-col rounded-2xl justify-center items-center">
-            <form onSubmit={handleSubmit}>
+            <form>
               <div className="m-2 flex flex-col w-full">
                 <label
                   htmlFor="Old Password"
@@ -78,6 +81,7 @@ const ProfilePage = () => {
                 <button
                   type="submit"
                   className="bg-slate-800 text-white normal-text p-2 m-2 rounded-lg w-full h-2/3"
+                  onClick={(e)=>handleSubmit(e)}
                 >
                   Confirm
                 </button>
